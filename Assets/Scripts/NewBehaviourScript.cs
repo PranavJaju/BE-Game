@@ -165,6 +165,7 @@ public class NewBehaviourScript : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        
         // Only process input for the local player
         if (!photonView.IsMine) return;
         
