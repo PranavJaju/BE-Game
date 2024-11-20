@@ -643,7 +643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ragdoll: {fileID: 3917293204983527479}
-  clampInDegrees: {x: 360, y: 0}
+  clampInDegrees: {x: 360, y: 90}
   lockCursor: 1
   smoothing: {x: 3, y: 3}
   characterBody: {fileID: 4364847683783107074}
@@ -1877,6 +1877,7 @@ MonoBehaviour:
   defaultHeight: 2
   crouchHeight: 1
   crouchSpeed: 3
+  isLocalPlayer: 0
 --- !u!65 &1741111022432781314
 BoxCollider:
   m_ObjectHideFlags: 0

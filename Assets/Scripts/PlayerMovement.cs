@@ -335,7 +335,7 @@
 // //     private Vector3 networkPosition;
 // //     private Quaternion networkRotation;
 // //     private float lagDistance = 10f;
-    
+
 // //     public GameObject mobileControlsCanvas; 
 // //     public Button jumpButton;              
 // //     public Joystick moveJoystick;     
@@ -350,7 +350,7 @@
 // //     {
 // //         Debug.Log("JUMP is assigned correctly.");
 // //     }
-   
+
 
 // //     characterController = GetComponent<CharacterController>();
 // //     animator = GetComponent<Animator>();
@@ -400,7 +400,7 @@
 // // }
 // //     void Update()
 // //     {
-       
+
 // //         if (photonView.IsMine)
 // //         {
 // //             if (Application.platform == RuntimePlatform.Android)
@@ -417,7 +417,7 @@
 // //         {
 // //             UpdateRemotePlayer();
 // //         }
-        
+
 // //     }
 
 // //    void HandleMobileInput()
@@ -436,7 +436,7 @@
 // //         {
 // //             moveDirection = new Vector3(inputx, 0, inputz); // Vertical velocity should not affect X and Z movement
 // //             moveDirection = transform.TransformDirection(moveDirection);
-            
+
 // //             // Print moveDirection for debugging
 // //             Debug.Log("Move Direction: " + moveDirection);
 // //             currentSpeed = (inputz > 0 && moveJoystick.Vertical > 0.5f) ? runSpeed : walkSpeed; // Adjust speed for running
@@ -588,6 +588,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
     public float crouchHeight = 1f;
     public float crouchSpeed = 3f;
 
+
+
     // Private movement variables
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
@@ -610,6 +612,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
     private Vector3 networkPosition;
     private Quaternion networkRotation;
     private float lagDistance = 10f;
+
+    public bool isLocalPlayer;
 
     void Start()
     {
@@ -657,16 +661,47 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
         // Show/hide mobile controls based on platform
         if (mobileControlsCanvas != null)
         {
-            mobileControlsCanvas.SetActive(Application.platform == RuntimePlatform.Android || 
+            mobileControlsCanvas.SetActive(Application.platform == RuntimePlatform.Android ||
                                          Application.platform == RuntimePlatform.IPhonePlayer);
         }
     }
+
+    // void Update()
+    // {
+    //     if (photonView.IsMine)
+    //     {
+    //         if (Application.platform == RuntimePlatform.Android ||
+    //             Application.platform == RuntimePlatform.IPhonePlayer)
+    //         {
+    //             HandleMobileInput();
+    //         }
+    //         else
+    //         {
+    //             HandleKeyboardInput();
+    //         }
+    //         HandleAnimations();
+    //     }
+    //     else
+    //     {
+    //         UpdateRemotePlayer();
+    //     }
+
+    //     if (Input.GetKeyDown(KeyCode.X))
+    //     {
+    //         Debug.Log("Respawning player...");
+    //         Debug.Log("Is local player: " + isLocalPlayer);
+    //         if (isLocalPlayer)
+    //         {
+    //             RoomManager.instance.RespawnPlayer();
+    //         }
+    //     }
+    // }
 
     void Update()
     {
         if (photonView.IsMine)
         {
-            if (Application.platform == RuntimePlatform.Android || 
+            if (Application.platform == RuntimePlatform.Android ||
                 Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 HandleMobileInput();
@@ -681,7 +716,26 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
         {
             UpdateRemotePlayer();
         }
+
+        // Debug respawn key
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log("Respawn key pressed");
+            Debug.Log("Is local player: " + isLocalPlayer);
+
+            // Always use RoomManager's instance to respawn
+            if (RoomManager.instance != null)
+            {
+                Debug.Log("Calling RoomManager respawn");
+                RoomManager.instance.RespawnPlayer();
+            }
+            else
+            {
+                Debug.LogError("RoomManager instance is null");
+            }
+        }
     }
+
 
     void HandleMobileInput()
     {
