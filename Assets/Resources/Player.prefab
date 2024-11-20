@@ -1936,6 +1936,7 @@ MonoBehaviour:
   - {fileID: 3783699454134175429}
   - {fileID: 8810472046431654746}
   - {fileID: 5271549400699154664}
+  - {fileID: 8809753133461759584}
   - {fileID: 2290316622120719370}
   sceneViewId: 0
   InstantiationId: 0
@@ -2005,16 +2006,17 @@ MonoBehaviour:
   PickupRange: 100
   Hand: {fileID: 4234739131993683957}
   ThrowingForce: 100
+  HitVFXPrefab: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
   KnockbackForce: 10
   KnockbackUpwardForce: 2
-  playerAnimator: {fileID: 0}
+  KnockbackBackwardForce: 5
+  knockbackCooldown: 1
+  playerAnimator: {fileID: 7005614957338927810}
   pickupAnimationDuration: 1
   throwAnimationDuration: 0.5
+  fallAnimationDuration: 1
   transitionDuration: 0.1
-  pickupStateName: pickup
-  throwStateName: throw
-  fallStateName: fall
-  idleStateName: idle
+  debugMode: 0
 --- !u!114 &2290316622120719370
 MonoBehaviour:
   m_ObjectHideFlags: 0
