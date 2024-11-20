@@ -666,37 +666,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    // void Update()
-    // {
-    //     if (photonView.IsMine)
-    //     {
-    //         if (Application.platform == RuntimePlatform.Android ||
-    //             Application.platform == RuntimePlatform.IPhonePlayer)
-    //         {
-    //             HandleMobileInput();
-    //         }
-    //         else
-    //         {
-    //             HandleKeyboardInput();
-    //         }
-    //         HandleAnimations();
-    //     }
-    //     else
-    //     {
-    //         UpdateRemotePlayer();
-    //     }
-
-    //     if (Input.GetKeyDown(KeyCode.X))
-    //     {
-    //         Debug.Log("Respawning player...");
-    //         Debug.Log("Is local player: " + isLocalPlayer);
-    //         if (isLocalPlayer)
-    //         {
-    //             RoomManager.instance.RespawnPlayer();
-    //         }
-    //     }
-    // }
-
     void Update()
     {
         if (photonView.IsMine)
@@ -720,13 +689,13 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
         // Debug respawn key
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Debug.Log("Respawn key pressed");
-            Debug.Log("Is local player: " + isLocalPlayer);
+            // Debug.Log("Respawn key pressed");
+            // Debug.Log("Is local player: " + isLocalPlayer);
 
             // Always use RoomManager's instance to respawn
             if (RoomManager.instance != null)
             {
-                Debug.Log("Calling RoomManager respawn");
+                // Debug.Log("Calling RoomManager respawn");
                 RoomManager.instance.RespawnPlayer();
             }
             else
