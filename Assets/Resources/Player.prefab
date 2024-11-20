@@ -1226,6 +1226,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000029802326
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000029802326
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100055053655130789, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4a58d7113a9aa7f4bb09c7fd270fe112, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2016,7 +2044,7 @@ MonoBehaviour:
   throwAnimationDuration: 0.5
   fallAnimationDuration: 1
   transitionDuration: 0.1
-  debugMode: 0
+  debugMode: 1
 --- !u!114 &2290316622120719370
 MonoBehaviour:
   m_ObjectHideFlags: 0
