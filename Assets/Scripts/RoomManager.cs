@@ -104,12 +104,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // photonView.RPC("SetNickname", RpcTarget.AllBuffered, nickname);  
             photonView.RPC("SetNickname", RpcTarget.AllBuffered, nickname);
         }
-
+        // if (PhotonNetwork.LocalPlayer != null)
+        // {
+        //     PhotonNetwork.LocalPlayer.CustomProperties["NickName"] = nickname;
+        //     PhotonNetwork.LocalPlayer.SetCustomProperties(PhotonNetwork.LocalPlayer.CustomProperties);
+        // }
     }
     public void ChangeNickName(string _name)
     {
         // Set local nickname
         nickname = _name;
+        PhotonNetwork.NickName = _name;
     }
 
     public void JoinRoomButtonPressed()

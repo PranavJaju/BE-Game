@@ -673,7 +673,7 @@
 // // // // // //         {
 // // // // // //             isFalling = true;
 // // // // // //             isAnimating = true;
-            
+
 // // // // // //             // Reset any existing triggers
 // // // // // //             playerAnimator.ResetTrigger("PickupTrigger");
 // // // // // //             playerAnimator.ResetTrigger("ThrowTrigger");
@@ -851,7 +851,7 @@
 // // // // // //         if (hasCollided || Time.time - lastCollisionTime < collisionCooldown) return;
 
 // // // // // //         Debug.Log("Collision detected with: " + collision.gameObject.name); // Log collision
-        
+
 // // // // // //         PhotonView hitPlayerView = collision.gameObject.GetComponent<PhotonView>();
 // // // // // //         if (hitPlayerView != null && pickupClass != null)
 // // // // // //         {
@@ -954,7 +954,7 @@
 // // // // //     private void TryPickupObject()
 // // // // //     {
 // // // // //         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, PickupRange, PickupLayer);
-        
+
 // // // // //         if (nearbyObjects.Length > 0)
 // // // // //         {
 // // // // //             Collider closestObject = GetClosestObject(nearbyObjects);
@@ -973,7 +973,7 @@
 // // // // //     {
 // // // // //         Collider closestObject = null;
 // // // // //         float closestDistance = float.MaxValue;
-        
+
 // // // // //         foreach (Collider obj in objects)
 // // // // //         {
 // // // // //             float distance = Vector3.Distance(transform.position, obj.transform.position);
@@ -983,7 +983,7 @@
 // // // // //                 closestObject = obj;
 // // // // //             }
 // // // // //         }
-        
+
 // // // // //         return closestObject;
 // // // // //     }
 
@@ -1068,7 +1068,7 @@
 // // // // //         {
 // // // // //             isFalling = true;
 // // // // //             isAnimating = true;
-            
+
 // // // // //             playerAnimator.ResetTrigger("PickupTrigger");
 // // // // //             playerAnimator.ResetTrigger("ThrowTrigger");
 // // // // //             playerAnimator.SetTrigger("fall");
@@ -1202,7 +1202,7 @@
 // // // // //                 Vector3 knockbackDirection = hitDirection + Vector3.up * KnockbackUpwardForce;
 // // // // //                 knockbackDirection -= hitPlayerView.transform.forward * KnockbackBackwardForce;
 // // // // //                 knockbackDirection.Normalize();
-                
+
 // // // // //                 playerRb.AddForce(knockbackDirection * KnockbackForce, ForceMode.Impulse);
 // // // // //             }
 // // // // //         }
@@ -1227,7 +1227,7 @@
 // // // // //         if (hasCollided || Time.time - lastCollisionTime < collisionCooldown) return;
 
 // // // // //         Debug.Log($"Collision detected with: {collision.gameObject.name}");
-        
+
 // // // // //         PhotonView hitPlayerView = collision.gameObject.GetComponent<PhotonView>();
 // // // // //         if (hitPlayerView != null && pickupClass != null)
 // // // // //         {
@@ -1332,7 +1332,7 @@
 // // // //     private void TryPickupObject()
 // // // //     {
 // // // //         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, PickupRange, PickupLayer);
-        
+
 // // // //         if (nearbyObjects.Length > 0)
 // // // //         {
 // // // //             Collider closestObject = GetClosestObject(nearbyObjects);
@@ -1351,7 +1351,7 @@
 // // // //     {
 // // // //         Collider closestObject = null;
 // // // //         float closestDistance = float.MaxValue;
-        
+
 // // // //         foreach (Collider obj in objects)
 // // // //         {
 // // // //             float distance = Vector3.Distance(transform.position, obj.transform.position);
@@ -1361,7 +1361,7 @@
 // // // //                 closestObject = obj;
 // // // //             }
 // // // //         }
-        
+
 // // // //         return closestObject;
 // // // //     }
 
@@ -1447,7 +1447,7 @@
 // // // //             isFalling = true;
 // // // //             isAnimating = true;
 // // // //             lastKnockbackTime = Time.time;
-            
+
 // // // //             playerAnimator.ResetTrigger("PickupTrigger");
 // // // //             playerAnimator.ResetTrigger("ThrowTrigger");
 // // // //             playerAnimator.SetTrigger("fall");
@@ -1582,7 +1582,7 @@
 // // // //                 Vector3 knockbackDirection = hitDirection + Vector3.up * KnockbackUpwardForce;
 // // // //                 knockbackDirection -= hitPlayerView.transform.forward * KnockbackBackwardForce;
 // // // //                 knockbackDirection.Normalize();
-                
+
 // // // //                 playerRb.AddForce(knockbackDirection * KnockbackForce, ForceMode.Impulse);
 // // // //             }
 // // // //         }
@@ -1713,7 +1713,7 @@
 // // //     private void TryPickupObject()
 // // //     {
 // // //         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, PickupRange, PickupLayer);
-        
+
 // // //         if (nearbyObjects.Length > 0)
 // // //         {
 // // //             Collider closestObject = GetClosestObject(nearbyObjects);
@@ -1732,7 +1732,7 @@
 // // //     {
 // // //         Collider closestObject = null;
 // // //         float closestDistance = float.MaxValue;
-        
+
 // // //         foreach (Collider obj in objects)
 // // //         {
 // // //             float distance = Vector3.Distance(transform.position, obj.transform.position);
@@ -1742,7 +1742,7 @@
 // // //                 closestObject = obj;
 // // //             }
 // // //         }
-        
+
 // // //         return closestObject;
 // // //     }
 
@@ -1824,19 +1824,19 @@
 // // //     private void PlayFallAnimation()
 // // //     {
 // // //         if (debugMode) Debug.Log($"PlayFallAnimation called. isProcessingKnockback: {isProcessingKnockback}");
-        
+
 // // //         if (playerAnimator && !isProcessingKnockback && Time.time >= lastKnockbackTime + knockbackCooldown)
 // // //         {
 // // //             if (debugMode) Debug.Log("Starting fall animation sequence");
-            
+
 // // //             isProcessingKnockback = true;
 // // //             lastKnockbackTime = Time.time;
-            
+
 // // //             // Reset all animation triggers first
 // // //             playerAnimator.ResetTrigger("PickupTrigger");
 // // //             playerAnimator.ResetTrigger("ThrowTrigger");
 // // //             playerAnimator.ResetTrigger("fall");
-            
+
 // // //             // Set the new trigger and play animation
 // // //             playerAnimator.SetTrigger("fall");
 // // //             playerAnimator.CrossFade(fallStateHash, transitionDuration);
@@ -1852,7 +1852,7 @@
 // // //     private IEnumerator AutoRecoverFromFall()
 // // //     {
 // // //         if (debugMode) Debug.Log("Starting fall recovery sequence");
-        
+
 // // //         yield return new WaitForSeconds(fallAnimationDuration);
 
 // // //         if (playerAnimator)
@@ -1962,7 +1962,7 @@
 // // //     public void ApplyKnockback(int hitPlayerViewID, Vector3 hitDirection)
 // // //     {
 // // //         if (debugMode) Debug.Log($"ApplyKnockback called for player: {hitPlayerViewID}");
-        
+
 // // //         PhotonView hitPlayerView = PhotonView.Find(hitPlayerViewID);
 // // //         if (hitPlayerView != null)
 // // //         {
@@ -1970,7 +1970,7 @@
 // // //             if (hitPlayerPickup != null && !hitPlayerPickup.isProcessingKnockback)
 // // //             {
 // // //                 if (debugMode) Debug.Log("Applying knockback and playing fall animation");
-                
+
 // // //                 hitPlayerPickup.photonView.RPC("PlayFallAnimation", RpcTarget.All);
 
 // // //                 Rigidbody playerRb = hitPlayerView.gameObject.GetComponent<Rigidbody>();
@@ -1979,7 +1979,7 @@
 // // //                     Vector3 knockbackDirection = hitDirection + Vector3.up * KnockbackUpwardForce;
 // // //                     knockbackDirection -= hitPlayerView.transform.forward * KnockbackBackwardForce;
 // // //                     knockbackDirection.Normalize();
-                    
+
 // // //                     playerRb.AddForce(knockbackDirection * KnockbackForce, ForceMode.Impulse);
 // // //                 }
 // // //             }
@@ -2118,7 +2118,7 @@
 // //     private void TryPickupObject()
 // //     {
 // //         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, PickupRange, PickupLayer);
-        
+
 // //         if (nearbyObjects.Length > 0)
 // //         {
 // //             Collider closestObject = GetClosestObject(nearbyObjects);
@@ -2137,7 +2137,7 @@
 // //     {
 // //         Collider closestObject = null;
 // //         float closestDistance = float.MaxValue;
-        
+
 // //         foreach (Collider obj in objects)
 // //         {
 // //             float distance = Vector3.Distance(transform.position, obj.transform.position);
@@ -2147,7 +2147,7 @@
 // //                 closestObject = obj;
 // //             }
 // //         }
-        
+
 // //         return closestObject;
 // //     }
 
@@ -2229,18 +2229,18 @@
 // //     private void PlayFallAnimation()
 // //     {
 // //         if (debugMode) Debug.Log($"PlayFallAnimation called. isProcessingKnockback: {isProcessingKnockback}");
-        
+
 // //         if (playerAnimator && !isProcessingKnockback && Time.time >= lastKnockbackTime + knockbackCooldown)
 // //         {
 // //             if (debugMode) Debug.Log("Starting fall animation sequence");
-            
+
 // //             isProcessingKnockback = true;
 // //             lastKnockbackTime = Time.time;
-            
+
 // //             playerAnimator.ResetTrigger("PickupTrigger");
 // //             playerAnimator.ResetTrigger("ThrowTrigger");
 // //             playerAnimator.ResetTrigger("fall");
-            
+
 // //             playerAnimator.SetTrigger("fall");
 // //             playerAnimator.CrossFade(fallStateHash, transitionDuration);
 
@@ -2255,7 +2255,7 @@
 // //     private IEnumerator AutoRecoverFromFall()
 // //     {
 // //         if (debugMode) Debug.Log("Starting fall recovery sequence");
-        
+
 // //         yield return new WaitForSeconds(fallAnimationDuration);
 
 // //         if (playerAnimator)
@@ -2378,7 +2378,7 @@
 // //     public void ApplyKnockback(int hitPlayerViewID, Vector3 hitDirection, Vector3 hitPosition)
 // //     {
 // //         if (debugMode) Debug.Log($"ApplyKnockback called for player: {hitPlayerViewID}");
-        
+
 // //         PhotonView hitPlayerView = PhotonView.Find(hitPlayerViewID);
 // //         if (hitPlayerView != null)
 // //         {
@@ -2386,7 +2386,7 @@
 // //             if (hitPlayerPickup != null && !hitPlayerPickup.isProcessingKnockback)
 // //             {
 // //                 if (debugMode) Debug.Log("Applying knockback and playing fall animation");
-                
+
 // //                 hitPlayerPickup.photonView.RPC("PlayFallAnimation", RpcTarget.All);
 // //                 hitPlayerPickup.photonView.RPC("SpawnHitVFX", RpcTarget.All, hitPosition);
 
@@ -2396,7 +2396,7 @@
 // //                     Vector3 knockbackDirection = hitDirection + Vector3.up * KnockbackUpwardForce;
 // //                     knockbackDirection -= hitPlayerView.transform.forward * KnockbackBackwardForce;
 // //                     knockbackDirection.Normalize();
-                    
+
 // //                     playerRb.AddForce(knockbackDirection * KnockbackForce, ForceMode.Impulse);
 // //                 }
 // //             }
@@ -2501,7 +2501,7 @@
 //         throwTriggerHash = Animator.StringToHash("ThrowTrigger");
 //         fallTriggerHash = Animator.StringToHash("fall");
 //         idleTriggerHash = Animator.StringToHash("idle");
-        
+
 //         lastKnockbackTime = -knockbackCooldown;
 //     }
 
@@ -2548,7 +2548,7 @@
 //     private void TryPickupObject()
 //     {
 //         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, PickupRange, PickupLayer);
-        
+
 //         if (nearbyObjects.Length > 0)
 //         {
 //             Collider closestObject = GetClosestObject(nearbyObjects);
@@ -2567,7 +2567,7 @@
 //     {
 //         Collider closestObject = null;
 //         float closestDistance = float.MaxValue;
-        
+
 //         foreach (Collider obj in objects)
 //         {
 //             float distance = Vector3.Distance(transform.position, obj.transform.position);
@@ -2577,7 +2577,7 @@
 //                 closestObject = obj;
 //             }
 //         }
-        
+
 //         return closestObject;
 //     }
 
@@ -2773,7 +2773,17 @@ using Photon.Pun;
 using System.Collections;
 
 public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
+
 {
+    [Header("Mobile Input Settings")]
+    [SerializeField] public GameObject pickupButtonObj;
+    [SerializeField] public GameObject throwButtonObj;
+    [SerializeField] public GameObject mobileInputCanvas;
+
+    private MobilePickupButton mobilePickupButton;
+    private MobileThrowButton mobileThrowButton;
+    private bool isMobilePlatform;
+
     [Header("Pickup Settings")]
     [SerializeField] private LayerMask PickupLayer;
     [SerializeField] private GameObject PlayerCamera;
@@ -2823,6 +2833,119 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
         InitializeComponents();
         SetupAnimationHashes();
         ValidateSetup();
+        SetupMobileControls();
+
+    }
+
+
+    private void SetupMobileControls()
+    {
+        isMobilePlatform = Application.platform == RuntimePlatform.Android ||
+                          Application.platform == RuntimePlatform.IPhonePlayer;
+
+        if (isMobilePlatform && photonView.IsMine)
+        {
+            if (mobileInputCanvas != null)
+            {
+                mobileInputCanvas.SetActive(true);
+            }
+
+            // Setup pickup button
+            if (pickupButtonObj != null)
+            {
+                if (pickupButtonObj.GetComponent<MobilePickupButton>() == null)
+                {
+                    pickupButtonObj.AddComponent<MobilePickupButton>();
+                }
+                mobilePickupButton = pickupButtonObj.GetComponent<MobilePickupButton>();
+            }
+            else
+            {
+                Debug.LogError("Pickup Button is not assigned in " + gameObject.name);
+            }
+
+            // Setup throw button
+            if (throwButtonObj != null)
+            {
+                if (throwButtonObj.GetComponent<MobileThrowButton>() == null)
+                {
+                    throwButtonObj.AddComponent<MobileThrowButton>();
+                }
+                mobileThrowButton = throwButtonObj.GetComponent<MobileThrowButton>();
+            }
+            else
+            {
+                Debug.LogError("Throw Button is not assigned in " + gameObject.name);
+            }
+        }
+        else if (mobileInputCanvas != null)
+        {
+            mobileInputCanvas.SetActive(false);
+        }
+    }
+
+    private void HandlePickupAndDrop()
+    {
+        if (isMobilePlatform)
+        {
+            // Mobile input handling
+            if (mobilePickupButton != null && mobilePickupButton.IsPickupPressed())
+            {
+                if (!isAnimating && !isProcessingKnockback)
+                {
+                    if (!CurrentObjectRigidBody)
+                    {
+                        TryPickupObject();
+                    }
+                    else
+                    {
+                        photonView.RPC("DropObject", RpcTarget.All);
+                    }
+                }
+                // Reset the button state after processing
+                mobilePickupButton.OnPointerUp(null);
+            }
+        }
+        else
+        {
+            // Existing keyboard input
+            if (Input.GetKeyDown(KeyCode.E) && !isAnimating && !isProcessingKnockback)
+            {
+                if (!CurrentObjectRigidBody)
+                {
+                    TryPickupObject();
+                }
+                else
+                {
+                    photonView.RPC("DropObject", RpcTarget.All);
+                }
+            }
+        }
+    }
+
+    private void HandleThrow()
+    {
+        if (isMobilePlatform)
+        {
+            // Mobile input handling
+            if (mobileThrowButton != null && mobileThrowButton.IsThrowPressed())
+            {
+                if (CurrentObjectRigidBody && !isAnimating && !isProcessingKnockback)
+                {
+                    StartCoroutine(ThrowSequence());
+                }
+                // Reset the button state after processing
+                mobileThrowButton.OnPointerUp(null);
+            }
+        }
+        else
+        {
+            // Existing keyboard input
+            if (Input.GetKeyDown(KeyCode.Q) && CurrentObjectRigidBody && !isAnimating && !isProcessingKnockback)
+            {
+                StartCoroutine(ThrowSequence());
+            }
+        }
     }
 
     void Update()
@@ -2894,28 +3017,28 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
 
     #region Input Handling
 
-    private void HandlePickupAndDrop()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && !isAnimating && !isProcessingKnockback)
-        {
-            if (!CurrentObjectRigidBody)
-            {
-                TryPickupObject();
-            }
-            else
-            {
-                photonView.RPC("DropObject", RpcTarget.All);
-            }
-        }
-    }
+    // private void HandlePickupAndDrop()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.E) && !isAnimating && !isProcessingKnockback)
+    //     {
+    //         if (!CurrentObjectRigidBody)
+    //         {
+    //             TryPickupObject();
+    //         }
+    //         else
+    //         {
+    //             photonView.RPC("DropObject", RpcTarget.All);
+    //         }
+    //     }
+    // }
 
-    private void HandleThrow()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) && CurrentObjectRigidBody && !isAnimating && !isProcessingKnockback)
-        {
-            StartCoroutine(ThrowSequence());
-        }
-    }
+    // private void HandleThrow()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Q) && CurrentObjectRigidBody && !isAnimating && !isProcessingKnockback)
+    //     {
+    //         StartCoroutine(ThrowSequence());
+    //     }
+    // }
 
     private void UpdateHeldObject()
     {
@@ -2929,10 +3052,11 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
 
     #region Pickup System
 
+
     private void TryPickupObject()
     {
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, PickupRange, PickupLayer);
-        
+
         if (nearbyObjects.Length > 0)
         {
             Collider closestObject = GetClosestObject(nearbyObjects);
@@ -2951,7 +3075,7 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
     {
         Collider closestObject = null;
         float closestDistance = float.MaxValue;
-        
+
         foreach (Collider obj in objects)
         {
             float distance = Vector3.Distance(transform.position, obj.transform.position);
@@ -2961,7 +3085,7 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
                 closestObject = obj;
             }
         }
-        
+
         return closestObject;
     }
 
@@ -3177,11 +3301,11 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(isThrown);
             stream.SendNext(isAnimating);
             stream.SendNext(isProcessingKnockback);
-            
+
             // Send held object data
             bool hasHeldObject = CurrentObjectRigidBody != null;
             stream.SendNext(hasHeldObject);
-            
+
             if (hasHeldObject)
             {
                 // Send held object information
@@ -3220,7 +3344,7 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
                 // Get or update held object
                 int objectViewID = (int)stream.ReceiveNext();
                 PhotonView objectView = PhotonView.Find(objectViewID);
-                
+
                 if (objectView != null)
                 {
                     CurrentObjectRigidBody = objectView.GetComponent<Rigidbody>();
@@ -3269,7 +3393,7 @@ public class PickupClass : MonoBehaviourPunCallbacks, IPunObservable
                 if (lag > 0 && CurrentObjectRigidBody != null && !CurrentObjectRigidBody.isKinematic)
                 {
                     // Extrapolate position based on velocities
-                    Vector3 extrapolatedPosition = CurrentObjectRigidBody.position + 
+                    Vector3 extrapolatedPosition = CurrentObjectRigidBody.position +
                         (CurrentObjectRigidBody.velocity * (float)lag);
                     CurrentObjectRigidBody.MovePosition(extrapolatedPosition);
                 }
@@ -3318,4 +3442,26 @@ public class ThrowableCollisionHandler : MonoBehaviour
             pickupClass.photonView.RPC("ApplyKnockback", RpcTarget.All, hitPlayerView.ViewID, hitDirection, hitPoint);
         }
     }
+
+    
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Rest of the existing code remains the same...
