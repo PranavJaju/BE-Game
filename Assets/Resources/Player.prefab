@@ -592,6 +592,7 @@ GameObject:
   - component: {fileID: 525628882599695706}
   - component: {fileID: 4902232249431080490}
   - component: {fileID: 2675067451164761808}
+  - component: {fileID: 8265504370494168335}
   m_Layer: 5
   m_Name: JUMP
   m_TagString: GameController
@@ -713,6 +714,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8265504370494168335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350247081065719032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fa52e3b5360fe4da69565bc865cd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2424584771770366561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ragdoll: {fileID: 3917293204983527479}
-  clampInDegrees: {x: 360, y: 90}
+  clampInDegrees: {x: 360, y: 20}
   lockCursor: 1
   smoothing: {x: 3, y: 3}
   characterBody: {fileID: 4364847683783107074}

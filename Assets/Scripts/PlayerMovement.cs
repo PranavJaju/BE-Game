@@ -562,6 +562,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(PhotonAnimatorView))]
 public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
 {
+
+    
     [Header("References")]
     public Camera playerCamera;
     public GameObject mobileControlsCanvas;
@@ -615,6 +617,109 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool isLocalPlayer;
 
+    private Vector2 joystickInputVector;
+    private float joystickMagnitude;
+
+    void HandleMobileInput()
+    {
+        if (moveJoystick != null)
+        {
+            // Capture joystick input
+            inputx = moveJoystick.Horizontal;
+            inputz = moveJoystick.Vertical;
+
+            // Calculate joystick magnitude more precisely
+            joystickInputVector = new Vector2(inputx, inputz);
+            joystickMagnitude = joystickInputVector.magnitude;
+
+            // Improved input handling with smoother transitions
+            if (joystickMagnitude > 0.05f) // Smaller, more responsive deadzone
+            {
+                // Normalize input to ensure consistent direction
+                Vector3 normalizedDirection = new Vector3(
+                    joystickInputVector.normalized.x, 
+                    0, 
+                    joystickInputVector.normalized.y
+                );
+
+                // Transform direction to world space
+                moveDirection = transform.TransformDirection(normalizedDirection);
+
+                // Smooth speed transition based on joystick magnitude
+                currentSpeed = Mathf.Lerp(walkSpeed, runSpeed, 
+                    Mathf.Clamp01(joystickMagnitude * 1.5f)); // Adjust multiplier as needed
+            }
+            else
+            {
+                // Zero out movement when joystick is near center
+                moveDirection = Vector3.zero;
+                currentSpeed = 0f;
+            }
+
+            // Handle jump with new button script
+            HandleMobileJump();
+
+            // Apply movement
+            moveDirection.y = verticalVelocity;
+            characterController.Move(moveDirection * Time.deltaTime * currentSpeed);
+        }
+    }
+
+    void HandleMobileJump()
+    {
+        // Check for jump button using the new MobileJumpButton script
+        MobileJumpButton mobileJumpButton = jumpButton.GetComponent<MobileJumpButton>();
+        
+        if (mobileJumpButton != null)
+        {
+            // Update coyote time
+            if (characterController.isGrounded)
+            {
+                coyoteTimeCounter = coyoteTime;
+                isJumping = false;
+            }
+            else
+            {
+                coyoteTimeCounter -= Time.deltaTime;
+            }
+
+            // Jump input detection
+            if (mobileJumpButton.IsJumpPressed())
+            {
+                // Trigger jump if conditions are met
+                if (coyoteTimeCounter > 0f && !isJumping && canMove)
+                {
+                    verticalVelocity = jumpPower;
+                    isJumping = true;
+                    coyoteTimeCounter = 0f;
+
+                    // Trigger jump animation
+                    if (animator != null)
+                    {
+                        animator.SetBool("isJump", true);
+                    }
+                }
+            }
+            else
+            {
+                // Apply gravity
+                if (characterController.isGrounded && verticalVelocity < 0)
+                {
+                    verticalVelocity = -0.5f; // Small downward force when grounded
+                }
+                else
+                {
+                    verticalVelocity -= gravity * Time.deltaTime;
+                }
+
+                // Update animation state
+                if (animator != null)
+                {
+                    animator.SetBool("isJump", !characterController.isGrounded);
+                }
+            }
+        }
+    }
     void Start()
     {
         if (jumpButton == null)
@@ -664,6 +769,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
             mobileControlsCanvas.SetActive(Application.platform == RuntimePlatform.Android ||
                                          Application.platform == RuntimePlatform.IPhonePlayer);
         }
+        if (jumpButton != null && jumpButton.GetComponent<MobileJumpButton>() == null)
+        {
+            jumpButton.gameObject.AddComponent<MobileJumpButton>();
+        }
     }
 
     void Update()
@@ -706,40 +815,41 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-    void HandleMobileInput()
-    {
-        if (moveJoystick != null)
-        {
-            inputx = moveJoystick.Horizontal;
-            inputz = moveJoystick.Vertical;
+    // void HandleMobileInput()
+    // {
+    //     if (moveJoystick != null)
+    //     {
+    //         inputx = moveJoystick.Horizontal;
+    //         inputz = moveJoystick.Vertical;
 
-            // Only move if there's significant input to avoid accidental movements
-            if (Mathf.Abs(inputx) > 0.1f || Mathf.Abs(inputz) > 0.1f)
-            {
-                moveDirection = new Vector3(inputx, 0, inputz);
-                moveDirection = transform.TransformDirection(moveDirection);
-                currentSpeed = (inputz > 0 && moveJoystick.Vertical > 0.5f) ? runSpeed : walkSpeed;
-            }
-            else
-            {
-                moveDirection.x = 0;
-                moveDirection.z = 0;
-            }
-        }
+    //         // Only move if there's significant input to avoid accidental movements
+    //         if (Mathf.Abs(inputx) > 0.1f || Mathf.Abs(inputz) > 0.1f)
+    //         {
+    //             moveDirection = new Vector3(inputx, 0, inputz);
+    //             moveDirection = transform.TransformDirection(moveDirection);
+    //             currentSpeed = (inputz > 0 && moveJoystick.Vertical > 0.5f) ? runSpeed : walkSpeed;
+    //         }
+    //         else
+    //         {
+    //             moveDirection.x = 0;
+    //             moveDirection.z = 0;
+    //         }
+    //     }
 
-        // Handle jump logic
-        HandleJump();
+    //     // Handle jump logic
+        // HandleJump();
 
-        // Apply final movement
-        moveDirection.y = verticalVelocity;
-        characterController.Move(moveDirection * Time.deltaTime * currentSpeed);
 
-        // Ensure button interactions do not conflict with swipes or other gestures
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-    }
+    //     // Apply final movement
+    //     moveDirection.y = verticalVelocity;
+    //     characterController.Move(moveDirection * Time.deltaTime * currentSpeed);
+
+    //     // Ensure button interactions do not conflict with swipes or other gestures
+    //     if (EventSystem.current.IsPointerOverGameObject())
+    //     {
+    //         return;
+    //     }
+    // }
 
     void HandleKeyboardInput()
     {
