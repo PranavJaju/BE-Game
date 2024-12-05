@@ -264,41 +264,324 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    // void Update()
+    // {
+    //     if (photonView.IsMine)
+    //     {
+    //         if (Application.platform == RuntimePlatform.Android ||
+    //             Application.platform == RuntimePlatform.IPhonePlayer)
+    //         {
+    //             HandleMobileInput();
+    //         }
+    //         else
+    //         {
+    //             HandleKeyboardInput();
+    //         }
+    //         HandleAnimations();
+    //     }
+    //     else
+    //     {
+    //         UpdateRemotePlayer();
+    //     }
+
+    //     // Debug respawn key
+    //     if (Input.GetKeyDown(KeyCode.X))
+    //     {
+    //         // Always use RoomManager's instance to respawn
+    //         if (RoomManager.instance != null)
+    //         {
+    //             RoomManager.instance.RespawnPlayer();
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError("RoomManager instance is null");
+    //         }
+    //     }
+    // }
+
     void Update()
+{
+    if (photonView.IsMine)
     {
-        if (photonView.IsMine)
+        if (Application.platform == RuntimePlatform.Android ||
+            Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            if (Application.platform == RuntimePlatform.Android ||
-                Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-                HandleMobileInput();
-            }
-            else
-            {
-                HandleKeyboardInput();
-            }
-            HandleAnimations();
+            HandleMobileInput();
+            HandleMobileCameraRotation(); // New method for mobile camera rotation
         }
         else
         {
-            UpdateRemotePlayer();
+            HandleKeyboardInput();
         }
+        HandleAnimations();
+    }
+    else
+    {
+        UpdateRemotePlayer();
+    }
 
-        // Debug respawn key
-        if (Input.GetKeyDown(KeyCode.X))
+    // Debug respawn key
+    if (Input.GetKeyDown(KeyCode.X))
+    {
+        if (RoomManager.instance != null)
         {
-            // Always use RoomManager's instance to respawn
-            if (RoomManager.instance != null)
+            RoomManager.instance.RespawnPlayer();
+        }
+        else
+        {
+            Debug.LogError("RoomManager instance is null");
+        }
+    }
+}
+
+// void HandleMobileCameraRotation()
+// {
+//     // Check if there are any touches
+//     if (Input.touchCount > 0)
+//     {
+//         // Get the first touch
+//         Touch touch = Input.GetTouch(0);
+
+//         // Ignore touch on UI elements
+//         if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+//         {
+//             // Check if this is not the jump button touch
+//             if (jumpButton != null && 
+//                 EventSystem.current.currentSelectedGameObject != jumpButton.gameObject)
+//             {
+//                 // Camera rotation logic
+//                 if (touch.phase == TouchPhase.Moved)
+//                 {
+//                     // Rotate horizontally based on touch delta
+//                     float rotationY = touch.deltaPosition.x * lookSpeed * 0.1f;
+//                     transform.rotation *= Quaternion.Euler(0, rotationY, 0);
+
+//                     // Vertical camera rotation
+//                     rotationX += -touch.deltaPosition.y * lookSpeed * 0.1f;
+//                     rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+//                     playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// bool isInteractingWithUI = false;
+
+// void HandleMobileCameraRotation()
+// {
+//     // Check if there are any touches
+//     if (Input.touchCount > 0)
+//     {
+//         // Get the first touch
+//         Touch touch = Input.GetTouch(0);
+
+//         // Check if the touch is on a UI element
+//         if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+//         {
+//             // Set the UI interaction flag
+//             isInteractingWithUI = true;
+//         }
+//         else
+//         {
+//             // Reset the UI interaction flag
+//             isInteractingWithUI = false;
+
+//             // Camera rotation logic
+//             if (touch.phase == TouchPhase.Moved)
+//             {
+//                 // Rotate horizontally based on touch delta
+//                 float rotationY = touch.deltaPosition.x * lookSpeed * 0.1f;
+//                 transform.rotation *= Quaternion.Euler(0, rotationY, 0);
+
+//                 // Vertical camera rotation
+//                 rotationX += -touch.deltaPosition.y * lookSpeed * 0.1f;
+//                 rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+//                 playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+//             }
+//         }
+//     }
+//     else
+//     {
+//         // Reset the UI interaction flag
+//         isInteractingWithUI = false;
+//     }
+// }
+bool isInteractingWithUI = false;
+bool isJoystickDragging = false;
+
+// void HandleMobileCameraRotation()
+// {
+//     // Check if there are any touches
+//      Touch touch = Input.GetTouch(0);
+//     if (Input.touchCount > 0)
+//     {
+//         // Get the first touch
+       
+
+//         // Check if the touch is on a UI element
+//         if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+//         {
+//             // Check if the touch is on the joystick
+//             if (moveJoystick != null && EventSystem.current.currentSelectedGameObject == moveJoystick.gameObject)
+//             {
+//                 // Set the joystick dragging flag
+//                 isJoystickDragging = true;
+//             }
+//             else
+//             {
+//                 // Set the UI interaction flag
+//                 isInteractingWithUI = true;
+//             }
+//         }
+//         else
+//         {
+//             // Reset the UI and joystick interaction flags
+//             isInteractingWithUI = false;
+//             isJoystickDragging = false;
+
+//             // Camera rotation logic
+//             if (touch.phase == TouchPhase.Moved)
+//             {
+//                 // Rotate horizontally based on touch delta
+//                 float rotationY = touch.deltaPosition.x * lookSpeed * 0.1f;
+//                 transform.rotation *= Quaternion.Euler(0, rotationY, 0);
+
+//                 // Vertical camera rotation
+//                 rotationX += -touch.deltaPosition.y * lookSpeed * 0.1f;
+//                 rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+//                 playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+//             }
+//         }
+//     }
+//     else
+//     {
+//         // Reset the UI and joystick interaction flags
+//         isInteractingWithUI = false;
+//         isJoystickDragging = false;
+//     }
+
+//     // Only allow camera rotation if the user is not interacting with UI or joystick
+//     bool canRotateCamera = !isInteractingWithUI && !isJoystickDragging;
+//     if (canRotateCamera)
+//     {
+//         // Apply camera rotation
+//         // Rotate horizontally based on touch delta
+//         float rotationY = touch.deltaPosition.x * lookSpeed * 0.1f;
+//         transform.rotation *= Quaternion.Euler(0, rotationY, 0);
+
+//         // Vertical camera rotation
+//         rotationX += -touch.deltaPosition.y * lookSpeed * 0.1f;
+//         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+//         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+//     }
+// }
+// void HandleMobileCameraRotation()
+// {
+//     // Check if there are any touches
+//     if (Input.touchCount > 0)
+//     {
+//         Touch touch = Input.GetTouch(0);
+
+//         // Check if the touch is on the right half of the screen
+//         bool isTouchOnRightHalf = touch.position.x > Screen.width / 2f;
+
+//         // Check if the touch is on a UI element
+//         if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+//         {
+//             // Check if the touch is on the joystick
+//             if (moveJoystick != null && EventSystem.current.currentSelectedGameObject == moveJoystick.gameObject)
+//             {
+//                 // Set the joystick dragging flag
+//                 isJoystickDragging = true;
+//             }
+//             else
+//             {
+//                 // Set the UI interaction flag
+//                 isInteractingWithUI = true;
+//             }
+//         }
+//         else
+//         {
+//             // Reset the UI and joystick interaction flags
+//             isInteractingWithUI = false;
+//             isJoystickDragging = false;
+
+//             // Camera rotation logic - only work on right half of screen
+//             if (touch.phase == TouchPhase.Moved && isTouchOnRightHalf)
+//             {
+//                 // Rotate horizontally based on touch delta
+//                 float rotationY = touch.deltaPosition.x * lookSpeed * 0.1f;
+//                 transform.rotation *= Quaternion.Euler(0, rotationY, 0);
+
+//                 // Vertical camera rotation
+//                 rotationX += -touch.deltaPosition.y * lookSpeed * 0.1f;
+//                 rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+//                 playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+//             }
+//         }
+//     }
+//     else
+//     {
+//         // Reset the UI and joystick interaction flags
+//         isInteractingWithUI = false;
+//         isJoystickDragging = false;
+//     }
+// }
+
+
+void HandleMobileCameraRotation()
+{
+    // Check if there are any touches
+    if (Input.touchCount > 0)
+    {
+        Touch touch = Input.GetTouch(0);
+
+        // Explicitly check if the touch is on the right half of the screen
+        bool isTouchOnRightHalf = touch.position.x > Screen.width / 2f;
+
+        // Check if the touch is on a UI element
+        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+        {
+            // Check if the touch is on the joystick
+            if (moveJoystick != null && EventSystem.current.currentSelectedGameObject == moveJoystick.gameObject)
             {
-                RoomManager.instance.RespawnPlayer();
+                // Set the joystick dragging flag
+                isJoystickDragging = true;
             }
             else
             {
-                Debug.LogError("RoomManager instance is null");
+                // Set the UI interaction flag
+                isInteractingWithUI = true;
+            }
+        }
+        else
+        {
+            // Reset the UI and joystick interaction flags
+            isInteractingWithUI = false;
+            isJoystickDragging = false;
+
+            // Camera rotation logic - ONLY allow vertical rotation on right half of screen
+            if (touch.phase == TouchPhase.Moved && isTouchOnRightHalf)
+            {
+                // Horizontal rotation (full screen)
+                float rotationY = touch.deltaPosition.x * lookSpeed * 0.1f;
+                transform.rotation *= Quaternion.Euler(0, rotationY, 0);
+
+                // Vertical camera rotation - ONLY on right half
+                rotationX += -touch.deltaPosition.y * lookSpeed * 0.1f;
+                rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+                playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             }
         }
     }
-
+    else
+    {
+        // Reset the UI and joystick interaction flags
+        isInteractingWithUI = false;
+        isJoystickDragging = false;
+    }
+}
     void HandleKeyboardInput()
     {
         inputx = Input.GetAxis("Horizontal");
