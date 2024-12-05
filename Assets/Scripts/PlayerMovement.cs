@@ -63,50 +63,95 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
     private Vector2 joystickInputVector;
     private float joystickMagnitude;
 
+    // void HandleMobileInput()
+    // {
+    //     if (moveJoystick != null)
+    //     {
+    //         // Capture joystick input
+    //         inputx = moveJoystick.Horizontal;
+    //         inputz = moveJoystick.Vertical;
+
+    //         // Calculate joystick magnitude more precisely
+    //         joystickInputVector = new Vector2(0, inputz);
+    //         joystickMagnitude = joystickInputVector.magnitude;
+
+    //         // Improved input handling with smoother transitions
+    //         if (joystickMagnitude > 0.05f) // Smaller, more responsive deadzone
+    //         {
+    //             // Normalize input to ensure consistent direction
+    //             Vector3 normalizedDirection = new Vector3(
+    //                 joystickInputVector.normalized.x,
+    //                 0,
+    //                 joystickInputVector.normalized.y
+    //             );
+
+    //             // Transform direction to world space
+    //             moveDirection = transform.TransformDirection(normalizedDirection);
+
+    //             // Smooth speed transition based on joystick magnitude
+    //             currentSpeed = Mathf.Lerp(walkSpeed, runSpeed,
+    //                 Mathf.Clamp01(joystickMagnitude * 1.5f)); // Adjust multiplier as needed
+    //         }
+    //         else
+    //         {
+    //             // Zero out movement when joystick is near center
+    //             moveDirection = Vector3.zero;
+    //             currentSpeed = 0f;
+    //         }
+
+    //         // Handle jump with new button script
+    //         HandleMobileJump();
+
+    //         // Apply movement
+    //         moveDirection.y = verticalVelocity;
+    //         characterController.Move(moveDirection * Time.deltaTime * currentSpeed);
+    //     }
+    // }
+
     void HandleMobileInput()
+{
+    if (moveJoystick != null)
     {
-        if (moveJoystick != null)
+        // Capture both horizontal and vertical joystick input
+        inputx = moveJoystick.Horizontal;
+        inputz = moveJoystick.Vertical;
+
+        // Calculate joystick magnitude more precisely
+        joystickInputVector = new Vector2(inputx, inputz);
+        joystickMagnitude = joystickInputVector.magnitude;
+
+        // Improved input handling with smoother transitions
+        if (joystickMagnitude > 0.05f) // Smaller, more responsive deadzone
         {
-            // Capture joystick input
-            inputx = moveJoystick.Horizontal;
-            inputz = moveJoystick.Vertical;
+            // Normalize input to ensure consistent direction
+            Vector3 normalizedDirection = new Vector3(
+                joystickInputVector.normalized.x,
+                0,
+                joystickInputVector.normalized.y
+            );
 
-            // Calculate joystick magnitude more precisely
-            joystickInputVector = new Vector2(0, inputz);
-            joystickMagnitude = joystickInputVector.magnitude;
+            // Transform direction to world space
+            moveDirection = transform.TransformDirection(normalizedDirection);
 
-            // Improved input handling with smoother transitions
-            if (joystickMagnitude > 0.05f) // Smaller, more responsive deadzone
-            {
-                // Normalize input to ensure consistent direction
-                Vector3 normalizedDirection = new Vector3(
-                    joystickInputVector.normalized.x,
-                    0,
-                    joystickInputVector.normalized.y
-                );
-
-                // Transform direction to world space
-                moveDirection = transform.TransformDirection(normalizedDirection);
-
-                // Smooth speed transition based on joystick magnitude
-                currentSpeed = Mathf.Lerp(walkSpeed, runSpeed,
-                    Mathf.Clamp01(joystickMagnitude * 1.5f)); // Adjust multiplier as needed
-            }
-            else
-            {
-                // Zero out movement when joystick is near center
-                moveDirection = Vector3.zero;
-                currentSpeed = 0f;
-            }
-
-            // Handle jump with new button script
-            HandleMobileJump();
-
-            // Apply movement
-            moveDirection.y = verticalVelocity;
-            characterController.Move(moveDirection * Time.deltaTime * currentSpeed);
+            // Smooth speed transition based on joystick magnitude
+            currentSpeed = Mathf.Lerp(walkSpeed, runSpeed,
+                Mathf.Clamp01(joystickMagnitude * 1.5f)); // Adjust multiplier as needed
         }
+        else
+        {
+            // Zero out movement when joystick is near center
+            moveDirection = Vector3.zero;
+            currentSpeed = 0f;
+        }
+
+        // Handle jump with new button script
+        HandleMobileJump();
+
+        // Apply movement
+        moveDirection.y = verticalVelocity;
+        characterController.Move(moveDirection * Time.deltaTime * currentSpeed);
     }
+}
 
     void HandleMobileJump()
     {
