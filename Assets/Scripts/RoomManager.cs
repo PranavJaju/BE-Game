@@ -5,6 +5,7 @@ using Photon.Realtime;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager instance;
+    public string roomNameToJoin = "test";
     public GameObject _player;
     public GameObject playerPrefab;
     public Transform[] spawnPoints;
@@ -31,28 +32,28 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-    void Start()
-    {
-        // Debug.Log("Connecting...");
-        // PhotonNetwork.ConnectUsingSettings();
+    // void Start()
+    // {
+    //     // Debug.Log("Connecting...");
+    //     // PhotonNetwork.ConnectUsingSettings();
 
-    }
+    // }
 
-    public override void OnConnectedToMaster()
-    {
-        base.OnConnectedToMaster();
-        Debug.Log("Connected to Server");
-        PhotonNetwork.JoinLobby();
-    }
+    // public override void OnConnectedToMaster()
+    // {
+    //     base.OnConnectedToMaster();
+    //     Debug.Log("Connected to Server");
+    //     PhotonNetwork.JoinLobby();
+    // }
 
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 4;
-        PhotonNetwork.JoinOrCreateRoom("test", roomOptions, TypedLobby.Default);
-        Debug.Log("Attempting to join or create room...");
-    }
+    // public override void OnJoinedLobby()
+    // {
+    //     base.OnJoinedLobby();
+    //     RoomOptions roomOptions = new RoomOptions();
+    //     roomOptions.MaxPlayers = 4;
+    //     PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, TypedLobby.Default);
+    //     Debug.Log("Attempting to join or create room...");
+    // }
 
     public override void OnJoinedRoom()
     {
@@ -120,7 +121,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void JoinRoomButtonPressed()
     {
         Debug.Log("Connecting...");
-        PhotonNetwork.ConnectUsingSettings();
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 4;
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, TypedLobby.Default);
         nameUI.SetActive(false);
         connectingUI.SetActive(true);
     }
